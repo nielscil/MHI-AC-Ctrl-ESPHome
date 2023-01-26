@@ -377,8 +377,7 @@ protected:
         if (call.get_target_temperature().has_value()) {
             this->target_temperature = *call.get_target_temperature();
 
-            tsetpoint_ = (uint)roundf(
-                clamp(this->target_temperature, minimum_temperature_, maximum_temperature_));
+            tsetpoint_ = clamp(this->target_temperature, minimum_temperature_, maximum_temperature_);
 
             mhi_ac_ctrl_core.set_tsetpoint((byte)(2 * tsetpoint_));
         }
@@ -441,7 +440,7 @@ protected:
 
     float minimum_temperature_ { 18.0f };
     float maximum_temperature_ { 30.0f };
-    float temperature_step_ { 1.0f };
+    float temperature_step_ { 0.5f };
 
     ACPower power_;
     ACMode mode_;
